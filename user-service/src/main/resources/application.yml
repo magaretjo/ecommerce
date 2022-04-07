@@ -31,3 +31,7 @@ eureka:
 logging:
   level:
     com.example.userservice: DEBUG
+
+token:
+  expiration_time: 86400000 # for 1 day
+  secret: user_token

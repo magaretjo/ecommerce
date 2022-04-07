@@ -1,6 +1,7 @@
 package com.example.userservice.security;
 
 
+import com.example.userservice.service.UserService;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -17,10 +18,10 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
      private static final String IP_ADDRESS = "192.168.45.119";    // G/W Server Address
 //     private static final String IP_ADDRESS = "127.0.0.1";    // G/W Server Address
     private PasswordEncoder bCryptPasswordEncoder;
-    private UserDetailsService userService;
+    private UserService userService;
     private Environment env;
 
-    public WebSecurity(Environment env, UserDetailsService userService, PasswordEncoder bCryptPasswordEncoder) {
+    public WebSecurity(Environment env, UserService userService, PasswordEncoder bCryptPasswordEncoder) {
         this.env = env;
         this.userService = userService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
@@ -47,8 +48,9 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     }
 
     private AuthenticationFilter getAuthenticationFilter() throws Exception {
-        AuthenticationFilter authFilter = new AuthenticationFilter();
-        authFilter.setAuthenticationManager(authenticationManager());
+        AuthenticationFilter authFilter =
+                new AuthenticationFilter(authenticationManager(), userService, env);
+//        authFilter.setAuthenticationManager(authenticationManager());
         return authFilter;
     }
 
