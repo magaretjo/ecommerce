@@ -35,3 +35,8 @@ logging:
 token:
   expiration_time: 86400000 # for 1 day
   secret: user_token
+
+
+api:
+  url:
+    order_service: http://localhost:8000/order-service/%s/orders
