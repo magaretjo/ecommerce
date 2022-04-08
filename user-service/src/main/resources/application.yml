@@ -30,13 +30,16 @@ eureka:
 
 logging:
   level:
-    com.example.userservice: DEBUG
+#    com.example.userservice: DEBUG
+    com.example.userservice.external: DEBUG
 
 token:
   expiration_time: 86400000 # for 1 day
   secret: user_token
 
 
-api:
-  url:
-    order_service: http://localhost:8000/order-service/%s/orders
+order-service:
+  url: http://ORDER-SERVICE/order-service/%s/orders
+#  url: http://localhost:8000/order-service/%s/orders
+  exception:
+    order_is_empty: Wrong method called for order-service."
