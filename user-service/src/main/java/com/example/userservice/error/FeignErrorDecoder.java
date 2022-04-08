@@ -1,6 +1,5 @@
 package com.example.userservice.error;
 
-import com.fasterxml.jackson.databind.ser.BeanSerializerBuilder;
 import feign.Response;
 import feign.codec.ErrorDecoder;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,5 +1,7 @@
 server:
   port: 0 # random 포트 실행
+  error:
+    include-stacktrace: on_trace_param    # ResponseStatusExceptions에서 trace제거
 
 greeting:
   message: Welcome to the Simple E-Commerce.
@@ -30,8 +32,9 @@ eureka:
 
 logging:
   level:
-#    com.example.userservice: DEBUG
+    com.example.userservice: DEBUG
     com.example.userservice.external: DEBUG
+
 
 token:
   expiration_time: 86400000 # for 1 day
@@ -42,4 +45,4 @@ order-service:
   url: http://ORDER-SERVICE/order-service/%s/orders
 #  url: http://localhost:8000/order-service/%s/orders
   exception:
-    order_is_empty: Wrong method called for order-service."
+    wrong_api: Wrong method called for order-service."
