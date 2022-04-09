@@ -15,3 +15,14 @@ spring:
           uri: file:///Users/magaretjo/projects/spring-cloud/ecommerce/config-repo
 #          username: git-username
 #          password: git password
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+
+management:   # for actuator
+  endpoints:
+    web:
+      exposure:
+        include: health, busrefresh  #refresh, health, beans, httptrace, busrefresh
