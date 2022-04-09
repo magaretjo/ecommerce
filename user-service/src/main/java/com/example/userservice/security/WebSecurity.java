@@ -39,6 +39,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
         System.out.println("http = " + http);
         http.csrf().disable();
+        http.authorizeRequests().antMatchers("/actuator/**").permitAll();
         http.authorizeRequests().antMatchers("/**")
                 .access("hasIpAddress('" + IP_ADDRESS + "')")
                 .and()

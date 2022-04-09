@@ -1,8 +1,5 @@
 server:
   port: 0 # random 포트 실행
-  error:
-    include-stacktrace: on_trace_param    # ResponseStatusExceptions에서 trace제거
-
 greeting:
   message: Welcome to the Simple E-Commerce.
 
@@ -35,10 +32,16 @@ logging:
     com.example.userservice: DEBUG
     com.example.userservice.external: DEBUG
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, beans
 
-token:
-  expiration_time: 86400000 # for 1 day
-  secret: user_token
+# below section transferred to config-server yaml
+#token:
+#  expiration_time: 86400000 # for 1 day
+#  secret: user_token
 
 
 order-service:
