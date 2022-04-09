@@ -4,8 +4,14 @@ server:
 spring:
   application:
     name: config-service
+  profiles:
+    active: native
   cloud:
     config:
       server:
+        native:
+          search-locations: file://${user.home}/projects/spring-cloud/ecommerce/native-repo
         git:
           uri: file:///Users/magaretjo/projects/spring-cloud/ecommerce/config-repo
+#          username: git-username
+#          password: git password
