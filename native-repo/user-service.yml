@@ -4,3 +4,10 @@ token:
 
 gateway:
   ip: 192.168.45.119
+
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password: '{cipher}a014629181a6afdd22f8e492386d8c033d274f11e7ad15768037bdd17a7339a1'

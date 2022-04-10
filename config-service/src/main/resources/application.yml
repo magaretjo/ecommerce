@@ -26,3 +26,4 @@ management:   # for actuator
     web:
       exposure:
         include: health, busrefresh  #refresh, health, beans, httptrace, busrefresh
+
