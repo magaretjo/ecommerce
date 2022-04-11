@@ -1,6 +1,6 @@
 token:
   expiration_time: 86400000
-  secret: user_token_native_user_service
+  secret: user_token_native_ecommerce
 
 gateway:
   ip: 192.168.45.119
@@ -10,4 +10,9 @@ spring:
     driver-class-name: org.h2.Driver
     url: jdbc:h2:mem:testdb
     username: sa
-    password: '{cipher}a014629181a6afdd22f8e492386d8c033d274f11e7ad15768037bdd17a7339a1'
+    password: '{cipher}AQAPsuA4cZ+6mtb1luc4iWtjiSAvyCu9lWvzNxfNssbTQ7WGzdmIMVfg4fB00+XaRoonTykHYkjZdZyT5cXPjh/G8IoujCZQOT0xDv2B9pk2miMO4ew0HfvLOSJt6bMt6v2c8dck+MH0lML+6+XSakRU9T0SKTy5e2DogMFN/BiTSR3bPl8plZgtN+wXGzwipnwYgHMF8F3EREh9v1aHXOjWboc/zhJXJa6Ligl+MKhOY37PmPbThjKlBwLAUKY5lDbdIQ6qubKy3opGj65n+a/kwu4uTpbeBHcA2IyqdivZAUDYYi6GuZetK/694V9FSV3B9SWnnFgAbzHKOYsGvPbCedgpoNbmk6okU8e2Urp9UQX4tvWXvMFRie2R0+YKcdA='
+
+order-service:
+  url: http://ORDER-SERVICE/order-service/%s/orders
+  exception:
+    wrong_api: Wrong method called for order-service."

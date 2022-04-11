@@ -48,9 +48,3 @@ management:
 #  expiration_time: 86400000 # for 1 day
 #  secret: user_token
 
-
-order-service:
-  url: http://ORDER-SERVICE/order-service/%s/orders
-#  url: http://localhost:8000/order-service/%s/orders
-  exception:
-    wrong_api: Wrong method called for order-service."

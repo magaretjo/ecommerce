@@ -1,3 +1,10 @@
 
 encrypt:
-  key: abcdefghijklmnopqrstuvwxyz1234567890
+# 방식1 : JCA를 사용한 키 암호화 방법
+#  key: abcdefghijklmnopqrstuvwxyz1234567890
+
+# 방식 2: keytool을 사용한 대칭키 사용
+  key-store:
+    location: file://${user.home}/projects/spring-cloud/ecommerce/keystore/apiEncryptionKey.jks
+    password: 1234**
+    alias: apiEncryptionKey
