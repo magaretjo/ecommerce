@@ -37,11 +37,10 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         System.out.println("### spring.cloud.client.hostname=" + env.getProperty("spring.cloud.client.hostname"));
         System.out.println("### spring.cloud.client.ip-address=" + env.getProperty("spring.cloud.client.ip-address"));
 
-        System.out.println("http = " + http);
         http.csrf().disable();
         http.authorizeRequests().antMatchers("/actuator/**").permitAll();
         http.authorizeRequests().antMatchers("/**")
-                .access("hasIpAddress('" + IP_ADDRESS + "')")
+                .access("hasIpAddress('" + env.getProperty("spring.cloud.client.ip-address") + "')")
                 .and()
                 .addFilter(getAuthenticationFilter());
 
