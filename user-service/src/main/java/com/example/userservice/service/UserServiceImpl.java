@@ -5,11 +5,12 @@ import com.example.userservice.external.OrderServiceClient;
 import com.example.userservice.jpa.UserEntity;
 import com.example.userservice.jpa.UserRepository;
 import com.example.userservice.vo.ResponseOrder;
-import feign.FeignException;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.circuitbreaker.CircuitBreaker;
+import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
 import org.springframework.core.env.Environment;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,22 +28,25 @@ import java.util.UUID;
 public class UserServiceImpl implements UserService {
     UserRepository userRepository;
     BCryptPasswordEncoder passwordEncoder;
-
     Environment env;
+
     RestTemplate restTemplate;
     OrderServiceClient orderServiceClient;
+    CircuitBreakerFactory circuitBreakerFactory;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository
                          , BCryptPasswordEncoder passwordEncoder
                          , Environment env
                          , RestTemplate restTemplate
-                         , OrderServiceClient orderServiceClient) {
+                         , OrderServiceClient orderServiceClient
+                         , CircuitBreakerFactory circuitBreakerFactory) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.env = env;
         this.restTemplate = restTemplate;
         this.orderServiceClient = orderServiceClient;
+        this.circuitBreakerFactory = circuitBreakerFactory;
     }
 
     @Override
@@ -80,7 +84,7 @@ public class UserServiceImpl implements UserService {
         }
         UserDto userDto = new ModelMapper().map(userEntity, UserDto.class);
 
-        /* Sync Call using Rest Template */
+        /* 1. Sync Call using Rest Template */
 //        String orderUrl = String.format(env.getProperty("order_service.url"), userId);
 //        ResponseEntity<List<ResponseOrder>> orderListResponse =
 //                restTemplate.exchange(orderUrl, HttpMethod.GET
@@ -90,7 +94,7 @@ public class UserServiceImpl implements UserService {
 //
 //        List<ResponseOrder> orders = orderListResponse.getBody();
 
-        /* Sync Call using a feign-client */
+        /* 2. Sync Call using a feign-client */
         // feign exception handling
 //        List<ResponseOrder> orders;
 //        try {
@@ -100,7 +104,14 @@ public class UserServiceImpl implements UserService {
 //        catch (FeignException ex) {
 //            log.error(ex.getMessage());
 //        }
-        List<ResponseOrder> orders = orderServiceClient.getOrders(userId);
+
+        /* 3. Feign + ErrorDecoder 적용 */
+//        List<ResponseOrder> orders = orderServiceClient.getOrders(userId);
+
+        /* 4. Circuit Breaker */
+        CircuitBreaker circuitBreaker = circuitBreakerFactory.create("circuitbreaker");
+        List<ResponseOrder> orders = circuitBreaker.run(() -> orderServiceClient.getOrders(userId),
+                                    throwable -> new ArrayList<>());
         userDto.setOrders(orders);
 
         return userDto;
