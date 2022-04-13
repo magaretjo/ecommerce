@@ -31,6 +31,12 @@ spring:
     sampler:
       probability: 1.0
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, beans, busrefresh, info, metrics, prometheus
+
 eureka:
   client:
     fetch-registry: true
