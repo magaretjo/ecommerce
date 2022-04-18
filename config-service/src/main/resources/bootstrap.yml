@@ -5,6 +5,7 @@ encrypt:
 
 # 방식 2: keytool을 사용한 대칭키 사용
   key-store:
-    location: file://${user.home}/projects/spring-cloud/ecommerce/keystore/apiEncryptionKey.jks
+#    location: file://${user.home}/projects/spring-cloud/ecommerce/keystore/apiEncryptionKey.jks
+    location: file:/apiEncryptionKey.jks
     password: 1234**
     alias: apiEncryptionKey
