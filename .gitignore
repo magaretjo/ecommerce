@@ -37,3 +37,14 @@ out/
 
 ### VS Code ###
 .vscode/
+
+
+#### for ecommerce ###
+config-back/
+config-repo/
+dockerizing/mariadb_dat/mysql/
+dockerizing/mariadb_dat/mysql/**/
+dockerizing/mysql/
+dockerizing/mysql/**/
+dockerizing/kafka-docker/
+
