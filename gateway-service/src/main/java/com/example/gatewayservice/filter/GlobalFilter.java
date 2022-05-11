@@ -25,6 +25,7 @@ public class GlobalFilter extends AbstractGatewayFilterFactory<GlobalFilter.Conf
 
     @Override
     public GatewayFilter apply(GlobalFilter.Config config) {
+
         // return Global Filter. Suppose we can extract JWT and perform Authentication
         return (exchange, chain) -> {
             ServerHttpRequest request = exchange.getRequest();

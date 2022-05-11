@@ -51,7 +51,7 @@ management:
         include: refresh, health, beans, busrefresh, info, metrics, prometheus
 
 # below section transferred to config-server yaml
-#token:
-#  expiration_time: 86400000 # for 1 day
-#  secret: user_token
+token:
+  expiration_time: 86400000 # for 1 day
+  secret: user_token
 

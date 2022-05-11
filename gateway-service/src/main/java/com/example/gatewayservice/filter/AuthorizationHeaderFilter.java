@@ -58,6 +58,7 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
             // token에 넣어둔 값을 해석하여 subject로 꺼낸다. 여기서는 userId
             // userId가 유효한지는 다시 검증을 해야 하는뎅... 그 부분이 없다. OAuth를 사용하라고 함. ㅜㅜ
             // JES-MARK : feign client처럼 구현은 가능할까? --> 가능은 한데 Tx가 과도해짐. token이 유효한지만 체크
+            log.info("### top.secret : " + env.getProperty("token.secret"));
             subject = Jwts.parser().setSigningKey(env.getProperty("token.secret"))
                     .parseClaimsJws(jwt).getBody()
                     .getSubject();
